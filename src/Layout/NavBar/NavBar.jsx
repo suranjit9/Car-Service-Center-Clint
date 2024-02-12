@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg'
 const NavBar = () => {
 
@@ -25,7 +26,7 @@ const NavBar = () => {
             </ul>
           </div>
          
-          <img src={logo} alt="" />
+          <Link to={"/"}><img src={logo} alt="" /></Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -42,7 +43,7 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          
+          <Link to={"/singin"}> Sing In </Link>
           <button className='btn btm-outline'>Appointment</button>
         </div>
       </div>

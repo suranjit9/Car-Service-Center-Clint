@@ -6,8 +6,8 @@ import Product from "../Product/Product";
 
 const Home = () => {
     return (
-        <div className="w-5/6 mx-auto">
-            <NavBar></NavBar>
+        <div>
+           
             <Banner></Banner>
             <AboutUs></AboutUs>
             <Product></Product>
