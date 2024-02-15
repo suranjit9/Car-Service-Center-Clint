@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { json, useLoaderData } from "react-router-dom";
 import { authContext } from "../../Authprovider/Authprovider";
 import checkout from "../../assets/images/checkout/checkout.png"
 
 const Booking = () => {
     const {user} = useContext(authContext)
     const servise = useLoaderData();
-    // console.log(servise)
-    const {title, price} = servise;
+    console.log(servise)
+    const {title, price,img } = servise;
     const hendalFromSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -15,15 +15,27 @@ const Booking = () => {
         const date = form.date.value; 
         const email = user?.email; 
         const price = form.price.value; 
-        const order = {
-            Coustomer :
+        const BookingOrder = {
+            
             name,
             date,
             email,
-            price
+            price,
+            img
 
         }
-        console.log(order)
+       console.log(BookingOrder)
+        fetch ("http://localhost:5000/BookingOrder",{
+            method: "POST",
+            headers: {
+                "content-type" : "application/json"
+            },
+            body:JSON.stringify(BookingOrder)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data)
+        })
 
     }
     return (

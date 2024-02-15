@@ -2,7 +2,7 @@
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const ProductDesign = ({product}) => {
-    console.log(product)
+    // console.log(product)
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
             <figure><img src={product.img} alt={product.title} /></figure>
