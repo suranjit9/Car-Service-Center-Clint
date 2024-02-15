@@ -5,7 +5,7 @@ import ProductDesign from "./ProductDesign";
 const Product = () => {
     const [product, setProduct]=useState([]);
     useEffect(()=>{
-        fetch ('../../../public/services.json')
+        fetch ('http://localhost:5000/serves')
         .then(res => res.json())
         .then(data => setProduct(data))
     },[])

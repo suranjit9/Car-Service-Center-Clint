@@ -15,7 +15,7 @@ const AuthProvider = ({children}) => {
     const [loder, setLoder]= useState(true);
     const googleProvider = new GoogleAuthProvider();
 
-    console.log('Auth',user);
+    // console.log('Auth',user);
     // Email & Password to created account
 
     const userCreate =(email, password)=>{

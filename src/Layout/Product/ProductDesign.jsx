@@ -10,7 +10,7 @@ const ProductDesign = ({product}) => {
                 <h2 className="card-title">{product.title}</h2>
                 <p>{product.description ? product.description.slice(0, 100) : product.description}</p>
                 <div className="card-actions justify-end">
-                    <Link className="text-red-600 hover:text-2xl"><FaLongArrowAltRight /></Link>
+                    <Link to={`/Booking/${product._id}`} className="text-red-600 hover:text-2xl"><FaLongArrowAltRight /></Link>
                 </div>
             </div>
         </div>
