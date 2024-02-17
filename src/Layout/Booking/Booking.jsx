@@ -6,8 +6,8 @@ import checkout from "../../assets/images/checkout/checkout.png"
 const Booking = () => {
     const {user} = useContext(authContext)
     const servise = useLoaderData();
-    console.log(servise)
-    const {title, price,img } = servise;
+    // console.log(servise)
+    const {title, price,img, _id, service_id } = servise;
     const hendalFromSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -21,7 +21,10 @@ const Booking = () => {
             date,
             email,
             price,
-            img
+            img,
+            service_id,
+            title,
+
 
         }
        console.log(BookingOrder)
@@ -33,9 +36,7 @@ const Booking = () => {
             body:JSON.stringify(BookingOrder)
         })
         .then(res => res.json())
-        .then(data =>{
-            console.log(data)
-        })
+        .then(data =>{console.log(data)})
 
     }
     return (

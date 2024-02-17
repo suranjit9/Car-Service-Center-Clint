@@ -1,8 +1,18 @@
 
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg'
+import { useContext } from 'react';
+import { authContext } from '../../Authprovider/Authprovider';
+import { FaPowerOff } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
 const NavBar = () => {
+    const {user, logOut} = useContext(authContext)
+    const handelLogout = () =>{
+      logOut()
+      .then()
+      .catch(err => console.log(err))
 
+    }
     const navBarItem = <>
     <li><a>Submenu 1</a></li>
     <li><a>Submenu 2</a></li>
@@ -43,8 +53,14 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to={"/singin"}> Sing In </Link>
-          <button className='btn btm-outline'>Appointment</button>
+          {
+           user?.email ? <>
+          
+           <li><Link to={"/BookingList"}><FaCartShopping /></Link></li>
+           <li ><button onClick={handelLogout}><FaPowerOff /></button></li>
+           </> :<Link  to={"/singin"}> Sing In </Link> 
+          }
+          <button className='btn btm-outline '>Appointment</button>
         </div>
       </div>
     );
