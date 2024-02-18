@@ -2,16 +2,21 @@ import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Authprovider/Authprovider";
 import BookListDesigan from "./BookListDesigan";
 import Swal from 'sweetalert2'
+import axios from "axios";
 
 const BookingList = () => {
     const {user} = useContext(authContext);
     const [bookingList, setBookingList] = useState([]);
-    console.log(bookingList)
+    // console.log(bookingList)
     const url = `http://localhost:5000/BookingOrder?email=${user?.email}`;
     useEffect(()=>{
-        fetch(url)
-        .then(res => res.json())
-        .then(data => setBookingList(data))
+      axios.get(url)
+      .then(res=>{
+        setBookingList(res.data)
+      })
+        // fetch(url)
+        // .then(res => res.json())
+        // .then(data => setBookingList(data))
     },[])
     const hendaleDelet = id =>{
       Swal.fire({

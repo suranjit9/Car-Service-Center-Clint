@@ -1,11 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import Swal from "sweetalert2";
 import { authContext } from "../../Authprovider/Authprovider";
 import logImg from "../../assets/images/login/login.svg"
+import axios from "axios";
 const SingIn = () => {
     const { googleSingup, singIn } = useContext(authContext);
+    const locetion = useLocation();
+    const nevegate = useNavigate();
+    // console.log(locetion)
    
 
     const handelGoogle = ()=>{
@@ -20,7 +24,7 @@ const SingIn = () => {
         const check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/;
         
         if(password.match(check)){
-            console.log("Your password is strong.");
+            // console.log("Your password is strong.");
         }else {
             return Swal.fire(`Oppo!Your Password Is Worrng`);
                
@@ -32,19 +36,32 @@ const SingIn = () => {
                 const userdata = {
                     email,
                     listTime:result.user?.metadata?.lastSignInTime};
-                fetch('http://localhost:5000/user', {
-                    method: 'PATCH',
-                    headers:{
-                        'content-type':'application/json'
-                    },
-                  body:JSON.stringify(userdata)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data,'click')
+                    const user = {email};
+                    axios.post("http://localhost:5000/jwt", user,{withCredentials: true})
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data) {
+                            nevegate(locetion?.state ? locetion?.state : "/")
+                        }
+                    })
+            //     fetch('http://localhost:5000/user', {
+            //         method: 'PATCH',
+            //         headers:{
+            //             'content-type':'application/json'
+            //         },
+            //       body:JSON.stringify(userdata)
+            //     })
+            //     .then(res => res.json())
+            //     .then(data => {
+            //         
+            //         // console.log(data,'click')
+            //         // get Acc Token
                     
-                })
-            })
+
+                    
+            //     })
+            // 
+        })
             .catch((error)=>{
                 console.log(error.message)
             })

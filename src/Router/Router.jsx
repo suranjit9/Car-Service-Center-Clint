@@ -28,11 +28,13 @@ import PrivedRoute from "./PrivedRoute";
           path: '/singUp',
           element:<SingUp></SingUp>
         },
+        // Product buy page 
         {
           path: `/Booking/:id`,
-          element: <Booking></Booking>,
+          element: <PrivedRoute><Booking></Booking></PrivedRoute>,
           loader:({params}) => fetch(`http://localhost:5000/serves/${params.id}`)
         },
+        //All Product Booking List
         {
           path:"/BookingList",
           element:<PrivedRoute><BookingList></BookingList></PrivedRoute>
