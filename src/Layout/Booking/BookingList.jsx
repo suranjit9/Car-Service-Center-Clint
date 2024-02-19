@@ -10,8 +10,9 @@ const BookingList = () => {
     // console.log(bookingList)
     const url = `http://localhost:5000/BookingOrder?email=${user?.email}`;
     useEffect(()=>{
-      axios.get(url)
+      axios.get(url, {withCredentials: true})
       .then(res=>{
+        console.log('Booking list text',res)
         setBookingList(res.data)
       })
         // fetch(url)
@@ -29,22 +30,34 @@ const BookingList = () => {
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:5000/BookingOrder/${id}`,{
-            method: "delete"
-          })
-          .then(res => res.json())
-          .then(data =>{
-            console.log(data)
-            if (data.deletedCount > 0) {
+          // fetch(`http://localhost:5000/BookingOrder/${id}`,{
+          //   method: "delete"
+          // })
+          // .then(res => res.json())
+          // .then(data =>{
+          //   console.log(data)
+          //   if (data.deletedCount > 0) {
+          //     Swal.fire({
+          //       title: "Deleted!",
+          //       text: "Your file has been deleted.",
+          //       icon: "success"
+          //     });
+          //     const remening = bookingList.filter(booki => booki._id !== id);
+          //   setBookingList(remening);
+          //   }
+           
+          // })
+          axios.delete(`http://localhost:5000/BookingOrder/${id}`,{withCredentials: true})
+          .then(res => {
+            console.log(res.data)
+            if (res.data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
                 icon: "success"
               });
               const remening = bookingList.filter(booki => booki._id !== id);
-            setBookingList(remening);
-            }
-           
+            setBookingList(remening);}
           })
           
         }
