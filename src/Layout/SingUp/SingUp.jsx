@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 
 import { Helmet } from "react-helmet";
 import { authContext } from "../../Authprovider/Authprovider";
+import axios from "axios";
 
 const SingUp = () => {
     const {googleSingup, userCreate} = useContext(authContext);
@@ -31,19 +32,25 @@ const SingUp = () => {
             const createdAC = result.user?.metadata?.creationTime;
             
             const user = {email, createACdate:createdAC};
-            fetch('http://localhost:5000/user',{
-                method:"POST",
-                headers:{
-                    'content-type':'application/json'
-                },
-                body:JSON.stringify(user),
+            // fetch('http://localhost:5000/user',{
+            //     method:"POST",
+            //     headers:{
+            //         'content-type':'application/json'
+            //     },
+            //     body:JSON.stringify(user),
+            // })
+            //     .then(res =>res.json())
+            //     .then(data =>{
+            //         if (data.insertedId) {
+            //           Swal.fire("Sing Up Successfully!");  
+            //         }
+            //     })
+            axios.post('http://localhost:5000/user')
+            .then(res => {
+                if (res.data.insertedId) {
+                              Swal.fire("Sing Up Successfully!");  
+                            }
             })
-                .then(res =>res.json())
-                .then(data =>{
-                    if (data.insertedId) {
-                      Swal.fire("Sing Up Successfully!");  
-                    }
-                })
         })
 
         .catch()
