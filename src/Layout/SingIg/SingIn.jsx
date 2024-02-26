@@ -5,12 +5,13 @@ import Swal from "sweetalert2";
 import { authContext } from "../../Authprovider/Authprovider";
 import logImg from "../../assets/images/login/login.svg"
 import axios from "axios";
+import useAxiosUrl from "../../Hook/useAxiosUrl";
 const SingIn = () => {
     const { googleSingup, singIn } = useContext(authContext);
     const locetion = useLocation();
     const nevegate = useNavigate();
     // console.log(locetion)
-   
+    const axiosUrl = useAxiosUrl();
 
     const handelGoogle = ()=>{
         googleSingup()
@@ -37,7 +38,7 @@ const SingIn = () => {
                     email,
                     listTime:result.user?.metadata?.lastSignInTime};
                     const user = {email};
-                    axios.post("http://localhost:5000/jwt", user,{withCredentials: true})
+                    axiosUrl.post("/jwt", user)
                     .then(res => {
                         console.log(res.data.Success)
                         if (res.data.Success) {

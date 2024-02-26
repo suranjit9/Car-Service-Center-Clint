@@ -10,7 +10,7 @@ const BookingList = () => {
     // console.log(bookingList)
     const url = `http://localhost:5000/BookingOrder?email=${user?.email}`;
     useEffect(()=>{
-      axios.get(url)
+      axios.get(url,{withCredentials: true})
       .then(res=>{
         // console.log('Booking list text',res)
         setBookingList(res.data)

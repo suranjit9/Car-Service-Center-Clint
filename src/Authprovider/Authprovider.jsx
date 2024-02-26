@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import app from "../Firebase/firebase.config";
 import axios, { Axios } from "axios";
+import useAxiosUrl from "../Hook/useAxiosUrl";
 
 
 
@@ -15,6 +16,7 @@ const AuthProvider = ({children}) => {
     const [user, setUser] = useState('');
     const [loder, setLoder]= useState(true);
     const googleProvider = new GoogleAuthProvider();
+    const axiosUrl = useAxiosUrl();
 
     // console.log('Auth',user);
     // Email & Password to created account
@@ -50,7 +52,7 @@ const AuthProvider = ({children}) => {
             setUser(currentUsere);
             console.log('currntUser',currentUsere );
             if (currentUsere) {
-                axios.post('http://localhost:5000/jwt',emailUser,{withCredentials: true} )
+                axiosUrl.post('/jwt',emailUser)
                 .then(res=> console.log('helo token ', res.data))
             }
             else{
@@ -58,7 +60,7 @@ const AuthProvider = ({children}) => {
                 // .then(res => {
                 //     console.log('logout token ', res.data)
                 // })
-                axios.post('http://localhost:5000/logout', emailUser, {
+                axiosUrl.post('/logout', emailUser, {
                     withCredentials: true
                 } )
                 .then(res => console.log('logout token ', res.data))

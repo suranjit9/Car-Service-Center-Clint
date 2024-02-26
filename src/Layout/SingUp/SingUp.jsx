@@ -5,9 +5,11 @@ import Swal from 'sweetalert2'
 import { Helmet } from "react-helmet";
 import { authContext } from "../../Authprovider/Authprovider";
 import axios from "axios";
+import useAxiosUrl from "../../Hook/useAxiosUrl";
 
 const SingUp = () => {
     const {googleSingup, userCreate} = useContext(authContext);
+    const axiosUrl = useAxiosUrl();
     // console.log(user);
     const hendalEmail = e =>{
         e.preventDefault();
@@ -45,7 +47,7 @@ const SingUp = () => {
             //           Swal.fire("Sing Up Successfully!");  
             //         }
             //     })
-            axios.post('http://localhost:5000/user')
+            axiosUrl.post('/user')
             .then(res => {
                 if (res.data.insertedId) {
                               Swal.fire("Sing Up Successfully!");  

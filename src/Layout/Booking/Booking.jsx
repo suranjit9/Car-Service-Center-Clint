@@ -2,10 +2,14 @@ import { useContext } from "react";
 import { json, useLoaderData } from "react-router-dom";
 import { authContext } from "../../Authprovider/Authprovider";
 import checkout from "../../assets/images/checkout/checkout.png"
+import useAxiosUrl from "../../Hook/useAxiosUrl";
+import Swal from 'sweetalert2';
 
 const Booking = () => {
     const {user} = useContext(authContext)
     const servise = useLoaderData();
+    const axiousurl = useAxiosUrl();
+   
     // console.log(servise)
     const {title, price,img, _id, service_id } = servise;
     const hendalFromSubmit = (event) => {
@@ -28,15 +32,36 @@ const Booking = () => {
 
         }
        console.log(BookingOrder)
-        fetch ("http://localhost:5000/BookingOrder",{
-            method: "POST",
-            headers: {
-                "content-type" : "application/json"
-            },
-            body:JSON.stringify(BookingOrder)
+        // fetch ("http://localhost:5000/BookingOrder",{
+        //     method: "POST",
+        //     headers: {
+        //         "content-type" : "application/json"
+        //     },
+        //     body:JSON.stringify(BookingOrder)
+        // })
+        // .then(res => res.json())
+        // .then(data =>{console.log(data)})
+        axiousurl.post('/BookingOrder', BookingOrder)
+        .then(res=> {
+           
+            if (res.data.acknowledged > 0) {
+                Swal.fire("Yor Serves is Add to Booking");
+            }else{
+                Swal.fire("Opp ! ");
+            }
         })
-        .then(res => res.json())
-        .then(data =>{console.log(data)})
+        
+      
+        // axios.post('/user', {
+        //     firstName: 'Fred',
+        //     lastName: 'Flintstone'
+        //   })
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
 
     }
     return (
